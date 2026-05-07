@@ -3,526 +3,277 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coleman — Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <title>Coleman Pandolfino</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f7f5f0;
-      --ink: #1a1a18;
-      --muted: #7a7870;
-      --accent: #c8a96e;
-      --line: #e0ddd6;
+      --bg: #dce8f5;
+      --fg: #0d1f33;
+      --muted: #6a8aaa;
     }
-
-    html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
-      color: var(--ink);
-      font-family: 'DM Sans', sans-serif;
+      color: var(--fg);
+      font-family: 'Geist Mono', monospace;
       font-weight: 300;
-      font-size: 17px;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.4rem 6vw;
-      background: rgba(247, 245, 240, 0.88);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      letter-spacing: 0.02em;
-      color: var(--ink);
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.82rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--ink); }
-
-    /* ── HERO ── */
-    .hero {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 0 6vw;
-      padding-top: 6rem;
-      position: relative;
-    }
-
-    .hero-eyebrow {
-      font-size: 0.78rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.6rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.2s forwards;
-    }
-
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3.2rem, 8vw, 7rem);
-      font-weight: 700;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      max-width: 16ch;
-      opacity: 0;
-      animation: fadeUp 0.9s 0.35s forwards;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--accent);
-    }
-
-    .hero-sub {
-      margin-top: 2rem;
-      font-size: 1.05rem;
-      color: var(--muted);
-      max-width: 44ch;
-      opacity: 0;
-      animation: fadeUp 0.9s 0.5s forwards;
-    }
-
-    .hero-scroll {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 6vw;
-      display: flex;
       align-items: center;
-      gap: 0.7rem;
-      font-size: 0.76rem;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .name {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(2.8rem, 10vw, 5rem);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      opacity: 0;
+      animation: fadeUp 1s 0.1s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+
+    .name em {
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    .divider {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, transparent, var(--muted), transparent);
+      margin: 2rem auto;
+      opacity: 0;
+      animation: fadeUp 1s 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+
+    .bio {
+      font-size: 0.72rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
+      line-height: 1.8;
       opacity: 0;
-      animation: fadeUp 1s 1s forwards;
+      animation: fadeUp 1s 0.45s cubic-bezier(0.16,1,0.3,1) forwards;
     }
 
-    .hero-scroll span {
-      display: block;
-      width: 40px;
-      height: 1px;
-      background: var(--accent);
-    }
-
-    /* ── SECTIONS ── */
-    section {
-      padding: 7rem 6vw;
-      border-top: 1px solid var(--line);
-    }
-
-    .section-label {
-      font-size: 0.76rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 3rem;
-    }
-
-    .section-heading {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.9rem, 4vw, 3rem);
-      font-weight: 400;
-      line-height: 1.2;
-      margin-bottom: 2rem;
-    }
-
-    /* ── ABOUT ── */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
-      align-items: start;
-    }
-
-    .about-text p {
-      color: var(--muted);
-      margin-bottom: 1.2rem;
-      font-size: 1rem;
-    }
-
-    .about-detail {
+    .socials {
+      margin-top: 3rem;
       display: flex;
       flex-direction: column;
-      gap: 1.6rem;
+      gap: 0.6rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
     }
 
-    .detail-item {
-      padding-bottom: 1.6rem;
-      border-bottom: 1px solid var(--line);
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1.2rem;
+      border: 1px solid #b8cfe8;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: all 0.2s ease;
+      background: #ccdff2;
     }
 
-    .detail-item:last-child { border-bottom: none; }
+    .social-link:hover {
+      border-color: var(--fg);
+      color: var(--fg);
+      background: #b8cfe8;
+    }
 
-    .detail-label {
-      font-size: 0.73rem;
+    .social-link .arrow {
+      font-size: 0.65rem;
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: all 0.2s ease;
+    }
+
+    .social-link:hover .arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ── EBK ── */
+    .ebk-wrap {
+      margin-top: 3rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.75s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+
+    .ebk-label {
+      font-size: 0.62rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.3rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
     }
 
-    .detail-value {
-      font-size: 0.97rem;
-      color: var(--ink);
-    }
-
-    /* ── INTERESTS ── */
-    .interests-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1rem;
-    }
-
-    .interest-card {
-      background: white;
-      border: 1px solid var(--line);
-      padding: 2rem 1.8rem;
+    .ebk-card {
+      background: #ccdff2;
+      border: 1px solid #b8cfe8;
       border-radius: 2px;
-      transition: transform 0.25s, box-shadow 0.25s;
+      padding: 1.2rem 1.4rem;
+      text-align: left;
     }
 
-    .interest-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 36px rgba(0,0,0,0.07);
-    }
-
-    .interest-icon {
-      font-size: 1.8rem;
-      margin-bottom: 0.9rem;
-    }
-
-    .interest-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
+    .ebk-player {
+      font-family: 'Cormorant', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--fg);
       margin-bottom: 0.5rem;
     }
 
-    .interest-desc {
-      font-size: 0.88rem;
+    .ebk-blurb {
+      font-size: 0.68rem;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.75;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.8rem;
     }
 
-    /* ── ACHIEVEMENTS ── */
-    .achievements-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .achievement {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      padding: 1.8rem 0;
-      border-bottom: 1px solid var(--line);
-      gap: 2rem;
-      transition: padding-left 0.25s;
-    }
-
-    .achievement:first-child { border-top: 1px solid var(--line); }
-
-    .achievement:hover { padding-left: 0.8rem; }
-
-    .achievement-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-    }
-
-    .achievement-desc {
-      font-size: 0.88rem;
+    .ebk-question {
+      font-size: 0.64rem;
       color: var(--muted);
-      margin-top: 0.2rem;
+      font-style: italic;
+      padding-top: 0.75rem;
+      border-top: 1px solid #b8cfe8;
+      letter-spacing: 0.02em;
     }
 
-    .achievement-tag {
-      font-size: 0.73rem;
+    .ebk-countdown {
+      margin-top: 0.5rem;
+      font-size: 0.6rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--accent);
-      border: 1px solid var(--accent);
-      padding: 0.3rem 0.8rem;
-      border-radius: 50px;
-      white-space: nowrap;
+      color: #8aaac8;
+      text-align: right;
     }
-
-    /* ── CONTACT ── */
-    .contact-inner {
-      max-width: 520px;
-    }
-
-    .contact-inner p {
-      color: var(--muted);
-      margin-bottom: 2.5rem;
-    }
-
-    .contact-links {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .contact-link {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1.2rem 1.6rem;
-      background: white;
-      border: 1px solid var(--line);
-      text-decoration: none;
-      color: var(--ink);
-      font-size: 0.95rem;
-      border-radius: 2px;
-      transition: background 0.2s, border-color 0.2s;
-    }
-
-    .contact-link:hover {
-      background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink);
-    }
-
-    .contact-link .link-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-left: auto;
-    }
-
-    .contact-link:hover .link-label { color: var(--bg); opacity: 0.6; }
 
     /* ── FOOTER ── */
-    footer {
-      padding: 2.5rem 6vw;
-      border-top: 1px solid var(--line);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(22px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .reveal {
+    .footer {
+      margin-top: 3rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: #8aaac8;
+      text-transform: uppercase;
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      animation: fadeUp 1s 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
     }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 700px) {
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .nav-links { display: none; }
-      .achievement { grid-template-columns: 1fr; }
-      .achievement-tag { width: fit-content; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
+  <div class="container">
 
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="nav-logo">Coleman</a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#interests">Interests</a></li>
-      <li><a href="#achievements">Achievements</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+    <h1 class="name">Coleman<br /><em>Pandolfino</em></h1>
 
-  <!-- HERO -->
-  <section class="hero">
-    <p class="hero-eyebrow">Lake Bluff, Illinois</p>
-    <h1>Hi, I'm<br /><em>Coleman.</em></h1>
-    <p class="hero-sub">A high school student with a passion for music, sports, and making sense of the world around me.</p>
-    <div class="hero-scroll"><span></span> Scroll to explore</div>
-  </section>
+    <div class="divider"></div>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <p class="section-label reveal">About Me</p>
-    <div class="about-grid">
-      <div class="about-text reveal">
-        <h2 class="section-heading">A little bit about who I am.</h2>
-        <p>I'm a high school student from Lake Bluff, Illinois with a wide range of interests — from performing on stage to following the beautiful game.</p>
-        <p>Whether I'm practicing a marimba piece, analyzing a soccer match, or diving into a history book, I'm always looking to learn something new and push myself further.</p>
-        <p>I'm involved in scouting through Northern Star and have been recognized for leadership at a national level. I'm curious, driven, and just getting started.</p>
-      </div>
-      <div class="about-detail reveal">
-        <div class="detail-item">
-          <div class="detail-label">Location</div>
-          <div class="detail-value">Lake Bluff, Illinois</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">Currently</div>
-          <div class="detail-value">High School Student</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">Instruments</div>
-          <div class="detail-value">Marimba & Snare Drum</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">Scouting</div>
-          <div class="detail-value">Northern Star Scouting</div>
-        </div>
-      </div>
+    <p class="bio">Student at Lake Forest High School</p>
+
+    <div class="socials">
+      <a href="mailto:Colemanpandolfino@gmail.com" class="social-link">
+        <span>Email</span>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://instagram.com/cpando28" class="social-link" target="_blank">
+        <span>Instagram</span>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://www.snapchat.com/add/cpando08" class="social-link" target="_blank">
+        <span>Snapchat</span>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://www.tiktok.com/@cpando08" class="social-link" target="_blank">
+        <span>TikTok</span>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://www.linkedin.com/in/coleman-pandolfino-467169324" class="social-link" target="_blank">
+        <span>LinkedIn</span>
+        <span class="arrow">↗</span>
+      </a>
     </div>
-  </section>
 
-  <!-- INTERESTS -->
-  <section id="interests">
-    <p class="section-label reveal">What I'm Into</p>
-    <h2 class="section-heading reveal">Interests &amp; Hobbies</h2>
-    <div class="interests-grid">
-      <div class="interest-card reveal">
-        <div class="interest-icon">🥁</div>
-        <div class="interest-title">Percussion</div>
-        <div class="interest-desc">I perform on marimba and snare drum — from concert etudes to competitive auditions. Music has been a huge part of my life.</div>
+    <!-- EBK DAILY PICK -->
+    <div class="ebk-wrap">
+      <p class="ebk-label">Today's EBK pick</p>
+      <div class="ebk-card">
+        <p class="ebk-player" id="ebk-name">Loading…</p>
+        <p class="ebk-blurb" id="ebk-blurb"></p>
+        <p class="ebk-question" id="ebk-question"></p>
       </div>
-      <div class="interest-card reveal">
-        <div class="interest-icon">⚽</div>
-        <div class="interest-title">Soccer & Football</div>
-        <div class="interest-desc">A massive fan of the beautiful game — from the FIFA World Cup to UEFA club competitions. I follow the sport closely and love the strategy behind it.</div>
-      </div>
-      <div class="interest-card reveal">
-        <div class="interest-icon">📖</div>
-        <div class="interest-title">History & Politics</div>
-        <div class="interest-desc">I'm genuinely fascinated by how the world works — from historical turning points to modern civic issues and policy debates.</div>
-      </div>
-      <div class="interest-card reveal">
-        <div class="interest-icon">🔧</div>
-        <div class="interest-title">Tech & DIY</div>
-        <div class="interest-desc">I enjoy tinkering with electronics and figuring out how things work — whether that's fixing a speaker or building my first website.</div>
-      </div>
-      <div class="interest-card reveal">
-        <div class="interest-icon">⛺</div>
-        <div class="interest-title">Scouting & Outdoors</div>
-        <div class="interest-desc">Through Northern Star Scouting, I've tackled everything from winter camping trips to leadership challenges in the field.</div>
-      </div>
-      <div class="interest-card reveal">
-        <div class="interest-icon">🔬</div>
-        <div class="interest-title">Science</div>
-        <div class="interest-desc">Broad curiosity about how the natural world operates — from biology and physics to the science behind everyday phenomena.</div>
-      </div>
+      <p class="ebk-countdown">Next pick in <span id="ebk-timer" style="font-variant-numeric:tabular-nums;">--:--:--</span></p>
     </div>
-  </section>
 
-  <!-- ACHIEVEMENTS -->
-  <section id="achievements">
-    <p class="section-label reveal">What I've Done</p>
-    <h2 class="section-heading reveal">Achievements</h2>
-    <div class="achievements-list">
-      <div class="achievement reveal">
-        <div>
-          <div class="achievement-name">NYLF National Security Program</div>
-          <div class="achievement-desc">Selected by invitation to participate in a nationally recognized youth leadership program focused on national security and civic leadership.</div>
-        </div>
-        <div class="achievement-tag">Leadership</div>
-      </div>
-      <div class="achievement reveal">
-        <div>
-          <div class="achievement-name">MEA Senior Concert Audition</div>
-          <div class="achievement-desc">Prepared and performed a competitive snare drum etude and marimba piece for a rigorous music audition cycle.</div>
-        </div>
-        <div class="achievement-tag">Music</div>
-      </div>
-      <div class="achievement reveal">
-        <div>
-          <div class="achievement-name">Northern Star Scouting</div>
-          <div class="achievement-desc">Active member demonstrating outdoor skills, teamwork, and leadership through challenging programs including winter camping.</div>
-        </div>
-        <div class="achievement-tag">Scouting</div>
-      </div>
-      <div class="achievement reveal">
-        <div>
-          <div class="achievement-name">Built My First Website</div>
-          <div class="achievement-desc">Designed and deployed a personal portfolio website from scratch — including domain registration, Cloudflare hosting, and front-end development.</div>
-        </div>
-        <div class="achievement-tag">Tech</div>
-      </div>
-    </div>
-  </section>
+    <p class="footer">© 2026 Coleman Pandolfino</p>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <p class="section-label reveal">Get In Touch</p>
-    <div class="contact-inner">
-      <h2 class="section-heading reveal">Let's connect.</h2>
-      <p class="reveal">Feel free to reach out — whether it's about music, soccer, or anything else.</p>
-      <div class="contact-links reveal">
-        <a href="mailto:Colemanpandolfino@gmail.com" class="contact-link">
-          ✉️ &nbsp; Colemanpandolfino@gmail.com
-          <span class="link-label">Email</span>
-        </a>
-        <a href="https://instagram.com/cpando28" class="contact-link" target="_blank">
-          📸 &nbsp; @cpando28
-          <span class="link-label">Instagram</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <span>© 2026 Coleman</span>
-    <span>Lake Bluff, IL</span>
-  </footer>
+  </div>
 
   <script>
-    // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 60);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    reveals.forEach(el => observer.observe(el));
+    const WORKER_URL = "https://red-flower-8837.colemanpandolfino.workers.dev";
+
+    (async function () {
+      try {
+        const res = await fetch(WORKER_URL);
+        const data = await res.json();
+        if (data.error) throw new Error(data.error);
+        document.getElementById("ebk-name").textContent = data.name;
+        document.getElementById("ebk-blurb").textContent = data.blurb;
+        document.getElementById("ebk-question").textContent = "🏀 " + data.question;
+      } catch (err) {
+        document.getElementById("ebk-name").textContent = "Couldn't load today's pick";
+        document.getElementById("ebk-blurb").textContent = err.message;
+      }
+    })();
+
+    function updateCountdown() {
+      const now = new Date();
+      const midnight = new Date(now);
+      midnight.setUTCHours(24, 0, 0, 0);
+      const diff = midnight - now;
+      const h = String(Math.floor(diff / 3600000)).padStart(2, "0");
+      const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
+      const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
+      document.getElementById("ebk-timer").textContent = `${h}:${m}:${s}`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
   </script>
 
 </body>
